@@ -19,7 +19,8 @@ const Home = () => {
     <hr/>
 
       <div className='mycard'>
-       <h1>Hey, I’m Shubham Sharma!<br/> Welcome to my  web-page!</h1>
+       <h1>Hey, I’m Shubham Sharma!</h1>
+       <h3>Assistant Professor at <br/><a href='https://geu.ac.in/' target={"_blank"}>Graphic Era University </a></h3>
        <p>_____&nbsp;&nbsp;&nbsp;&nbsp;Fullstack Java-Devloper , web-Devloper and  Android App Devloper &nbsp;&nbsp;&nbsp;&nbsp;____</p>
        <p>
         <img src="https://img.icons8.com/dusk/64/web.png" alt="Web icons" /> &nbsp;&nbsp; &nbsp;&nbsp;
