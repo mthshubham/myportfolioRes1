@@ -1,0 +1,26 @@
+.Hometop{
+    margin: 20px 0;
+    text-align: center;
+    /* border: 1px solid white; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+
+}
+
+.mycard{
+    margin: 20px;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    margin: 50px ;
+}
+.iknow{
+    display: flex;
+}
+ h3{
+    display: inline;
+}

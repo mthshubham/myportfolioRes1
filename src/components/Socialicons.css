@@ -1,0 +1,23 @@
+.social{
+  display: inline-block;
+  vertical-align: bottom;
+  margin: 0 10px ;
+}
+.social img{
+  width: 45px;
+}
+.icon {
+    opacity: 0;
+    animation: slideInRight 1s forwards;
+  }
+
+  @keyframes slideInRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }

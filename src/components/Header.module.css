@@ -1,0 +1,12 @@
+.header{
+    color: white;
+};
+
+.header.circle{
+border: 5 px solid rgb(229, 22, 22);
+}
+
+ul{
+    background: blue;
+    text-decoration: underline;
+}
