@@ -1,26 +1,100 @@
 .Hometop{
-    margin: 20px 0;
+    margin: 100px 0 20px;
     text-align: center;
     /* border: 1px solid white; */
     display: flex;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-
+    gap: 30px;
+    padding: 20px;
 }
 
 .mycard{
     margin: 20px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 500px;
+}
+
+.mycard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
+}
+
+.mycard h1 {
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    background: linear-gradient(45deg, #ffffff, #a8edea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mycard h3 {
+    margin: 15px 0;
+    font-size: 1.5em;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.mycard p {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin: 15px 0;
+}
+
+.mycard img {
+    transition: transform 0.3s ease;
+}
+
+.mycard img:hover {
+    transform: scale(1.1);
 }
 
 .center{
     display: flex;
     justify-content: center;
-    margin: 50px ;
+    margin: 50px;
+    padding: 20px;
 }
 .iknow{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
 }
  h3{
     display: inline;
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+  .Hometop {
+    margin-top: 80px;
+    flex-direction: column;
+    padding: 10px;
+  }
+  .mycard {
+    margin: 10px;
+    padding: 20px;
+  }
+  .center {
+    margin: 20px;
+  }
+  .iknow {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .mycard h1 {
+    font-size: 2em;
+  }
+  .mycard h3 {
+    font-size: 1.2em;
+  }
 }

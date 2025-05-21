@@ -90,27 +90,45 @@ const Gallery = ({imagedata}) => {
 };
 
 const GalleryWrapper = styled.div`
-margin:20px;
-background: #171717;
-border-radius: 10px;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-border: 1px solid rgba(255, 255, 255, 0.3); 
-padding: 20px;
-
+  margin: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 20px;
+  justify-content: center;
 `;
 
 const ImageWrapper = styled.div`
-  flex: 1 0 21%; /* Adjust the percentage to change the number of images per row */
+  flex: 1 0 21%;
   cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+  
   img {
     width: 100%;
-    height: auto;
-    border-radius: 5px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    flex: 1 0 45%;
+    
+    img {
+      height: 200px;
+    }
   }
 `;
 
@@ -123,8 +141,14 @@ const Lightbox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.9);
   z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 `;
 
 const Overlay = styled.div`
@@ -133,24 +157,44 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  cursor: pointer;
 `;
 
 const LargeImage = styled.img`
   max-width: ${({ size }) => size * 80}%;
   max-height: ${({ size }) => size * 80}%;
   border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  animation: zoomIn 0.3s ease;
+  
+  @keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
 `;
 
 const NavButton = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: transparent;
+  background: rgba(255, 255, 255, 0.1);
   border: none;
   color: white;
   font-size: 2rem;
   cursor: pointer;
-  padding: 0 10px;
+  padding: 15px;
+  border-radius: 50%;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.1);
+  }
+  
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
 `;
 
 export default Gallery;

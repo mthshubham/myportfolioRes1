@@ -1,47 +1,112 @@
-.header{
-    top: 20px;
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     text-align: center;
-    /* position: sticky; */
-    z-index: 1;
-    /* background-color: #2a2a2a; */
-    padding:10px ;
-    
-}
-
-.circle{
-border: 2px solid rgb(10, 188, 248);
-display: inline-block;
-width: 50vw;
-border-radius: 25px;
-
-}
-
-.circle ul{
-    list-style: none;
-}
-.circle ul li {
-    display: inline; 
+    z-index: 1000;
     padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-.circle ul li a{
+.circle {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    width: auto;
+    min-width: 300px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.circle:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.circle ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle ul li {
+    display: inline;
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+}
+
+.circle ul li a {
     color: white;
-   
-   
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 5px 0;
 }
-.active{
-    padding-bottom: 3px;
-    border-bottom: 2px solid rgb(10, 188, 248);
-   
-}
-.socialIcons{
-   float: left;
-    margin: 10px 0px 0 20px;
 
+.circle ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transition: width 0.3s ease;
 }
- 
-@media only screen and (min-width:1200px){
-    .header{
-        display: hidden;
+
+.circle ul li a:hover::after {
+    width: 100%;
+}
+
+.active {
+    padding-bottom: 3px;
+    border-bottom: 2px solid white;
+}
+
+.socialIcons {
+    float: left;
+    margin: 10px 0 0 20px;
+    display: flex;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 10px;
+    }
+    
+    .circle {
+        width: 100%;
+        margin: 10px 0;
+        min-width: auto;
+    }
+    
+    .circle ul {
+        flex-direction: column;
+    }
+    
+    .circle ul li {
+        display: block;
+        padding: 10px;
+    }
+    
+    .socialIcons {
+        float: none;
+        margin: 10px auto;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 1200px) {
+    .header {
+        display: block;
     }
 }

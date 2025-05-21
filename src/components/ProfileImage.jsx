@@ -17,14 +17,13 @@ border-radius:50%;
 `;
 
 const Image = styled.img`
-  
   width: 250px;
   height: 250px;
-  margin-top:5px;
-  clip-path:circle(50%);
+  margin-top: 5px;
+  clip-path: circle(50%);
   backface-visibility: hidden;
   transition: transform 0.6s;
-  overflow:hidden; 
+  overflow: hidden;
   animation: growShrink 2s infinite;
 
   @keyframes growShrink {
@@ -34,6 +33,12 @@ const Image = styled.img`
     50% {
       transform: scale(1.05);
     }
+  }
+
+  /* Media query for small screens */
+  @media (max-width: 768px) {
+    width: 150px;
+    height: 150px;
   }
 `;
 

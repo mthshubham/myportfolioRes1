@@ -93,6 +93,22 @@ const StyledWrapper = styled.div`
       transform: translateY(0);
       opacity: 1;
     }
-  }`;
+  }
+
+  /* Media query for small screens */
+  @media (max-width: 768px) {
+    .card {
+      padding: 15px;
+      gap: 10px;
+    }
+    .socialContainer {
+      width: 40px;
+      height: 40px;
+    }
+    .socialSvg {
+      width: 14px;
+    }
+  }
+`;
 
 export default Myskillicons;
