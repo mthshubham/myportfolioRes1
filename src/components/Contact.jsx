@@ -1,79 +1,182 @@
 import React from 'react'
-import Castro from './Castro'
-import Cinfo from './Cinfo';
-import Gallery from './Gallery';
-import Formcontact from './Formcontact';
-import Social from './Social';
-import styled from "styled-components"
+import styled from 'styled-components'
+import Formcontact from './Formcontact'
+import Social from './Social'
 
 const Contact = () => {
-
-  const images = [
-    { src: "https://drive.google.com/thumbnail?id=14nUrTScen7pDKJAn-kHg3r5Qu691YOBr&sz=w1000", alt: 'Image 1' },
-    { src: "https://drive.google.com/thumbnail?id=14EuGiq1jmlsQUjHNx3iWWKenNhlfNZWa&sz=w1000", alt: 'Image 2' },
-    { src: "", alt: 'Image 3' },
-    { src: "", alt: 'Image 4' },
-    
-  ];
-
   return (
-
-    <Mydiv>
-      <div className="top">
-        <Castro />
-        <Cinfo />
-      </div>
-      <div className="maps">
-          <div className="child">
+    <ContactContainer>
+      <h1>Get in Touch</h1>
+      
+      <ContentWrapper>
+        <InfoSection>
+          <h2>Contact Information</h2>
+          <InfoCard>
+            <InfoItem>
+              <Icon>📍</Icon>
+              <div>
+                <h3>Location</h3>
+                <p>Subhash Nagar, Chhatauni</p>
+                <p>Motihari, Bihar 845401</p>
+              </div>
+            </InfoItem>
+            
+            <InfoItem>
+              <Icon>📱</Icon>
+              <div>
+                <h3>Phone</h3>
+                <a href="tel:7260882890">+91 7260882890</a>
+              </div>
+            </InfoItem>
+            
+            <InfoItem>
+              <Icon>✉️</Icon>
+              <div>
+                <h3>Email</h3>
+                <a href="mailto:mthshubhamsharma@gmail.com">mthshubhamsharma@gmail.com</a>
+              </div>
+            </InfoItem>
+          </InfoCard>
+          
+          <SocialSection>
+            <h3>Connect with me</h3>
             <Social />
-          </div>
-          <div className="child">
-            <Formcontact />
-          </div>
-      </div>
-      <div className='maps'>
-      <Gallery imagedata={images} />
-      </div>
-      <div className="maps">
-      <div className="mapchild">
-      </div>
-      <div className="mapchild">
-      <iframe id='findme' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11979.115104502986!2d84.92118224025701!3d26.652448406656873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3993358c6087320b%3A0x89351b48cc0a8dd3!2sSharma_Sales%20%26%20Suppliers!5e1!3m2!1sen!2sin!4v1738050653470!5m2!1sen!2sin" width="900" height="450"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-      </div>
-    </Mydiv>
+          </SocialSection>
+        </InfoSection>
+
+        <FormSection>
+          <Formcontact />
+        </FormSection>
+      </ContentWrapper>
+
+      <MapSection>
+        <h2>Find me here</h2>
+        <MapContainer>
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11979.115104502986!2d84.92118224025701!3d26.652448406656873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3993358c6087320b%3A0x89351b48cc0a8dd3!2sSharma_Sales%20%26%20Suppliers!5e1!3m2!1sen!2sin!4v1738050653470!5m2!1sen!2sin" 
+            width="100%" 
+            height="450" 
+            style={{ border: 0 }} 
+            allowFullScreen="" 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </MapContainer>
+      </MapSection>
+    </ContactContainer>
+  )
+}
+
+const ContactContainer = styled.div`
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h1 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+`
+
+const ContentWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const InfoSection = styled.div`
+  h2 {
+    margin-bottom: 30px;
+  }
+`
+
+const InfoCard = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+`
+
+const InfoItem = styled.div`
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 25px;
   
-  );
-}
+  &:last-child {
+    margin-bottom: 0;
+  }
 
-const Mydiv=styled.div`
-margin:50px;
+  h3 {
+    color: #ffffff;
+    margin: 0 0 5px 0;
+    font-size: 1.2em;
+  }
 
+  p, a {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    text-decoration: none;
+    transition: color 0.3s ease;
 
+    &:hover {
+      color: #ffffff;
+    }
+  }
+`
 
-.top{
-  display:flex;
-  justify-content:center;
-}
-.maps{
-margin:20px;
-background: #171717;
-display:flex;
-justify-content:center;
-align-item:center;
-border-radius: 10px;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-border: 5px solid rgba(255, 255, 255, 0.3); 
-padding: 20px;
-}
+const Icon = styled.span`
+  font-size: 1.5em;
+  margin-right: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+`
 
-.child{
-  margin:20px;
- 
-}
+const SocialSection = styled.div`
+  h3 {
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+`
 
-`;
+const FormSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+`
+
+const MapSection = styled.div`
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+`
+
+const MapContainer = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+`
 
 export default Contact
