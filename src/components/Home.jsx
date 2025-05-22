@@ -37,9 +37,9 @@ const Home = () => {
 
       <h3>My Skills</h3>
       <div className="iknow">
-        <Iknowcards name="Html" source="https://img.icons8.com/color/96/html-5--v1.png" alter="html-5--v1" data="data" gitlink=""/>
-        <Iknowcards name="Java" source="https://img.icons8.com/color/96/java-coffee-cup-logo--v1.png"  alter="java-coffee-cup-logo--v1" data="data" gitlink=""/>
-        <Iknowcards name="CSS" source="https://img.icons8.com/color/96/css3.png" alter="css3"data="data" gitlink=""/>
+        <Iknowcards name="Html" source="https://img.icons8.com/color/96/html-5--v1.png" alter="html-5--v1" data="data" gitlink="https://github.com/mthshubham"/>
+        <Iknowcards name="Java" source="https://img.icons8.com/color/96/java-coffee-cup-logo--v1.png"  alter="java-coffee-cup-logo--v1" data="data" gitlink="https://github.com/mthshubham"/>
+        <Iknowcards name="CSS" source="https://img.icons8.com/color/96/css3.png" alter="css3"data="data" gitlink="https://github.com/mthshubham"/>
       </div>
     </>
   )

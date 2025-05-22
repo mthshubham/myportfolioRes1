@@ -91,11 +91,25 @@ const FormContainer = styled.div`
     text-align: center;
     margin-bottom: 30px;
     font-size: 1.8em;
+    
+    @media (max-width: 768px) {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+    border-radius: 15px;
   }
 `;
 
 const InputGroup = styled.div`
   margin-bottom: 20px;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 15px;
+  }
 `;
 
 const Input = styled.input`
@@ -116,6 +130,12 @@ const Input = styled.input`
     outline: none;
     border-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 10px 12px;
+    font-size: 0.95em;
+    border-radius: 8px;
   }
 `;
 
@@ -140,6 +160,13 @@ const TextArea = styled.textarea`
     border-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
   }
+  
+  @media (max-width: 768px) {
+    padding: 10px 12px;
+    font-size: 0.95em;
+    min-height: 100px;
+    border-radius: 8px;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -161,6 +188,12 @@ const SubmitButton = styled.button`
 
   &:active {
     transform: translateY(0);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 8px;
   }
 `;
 

@@ -68,7 +68,7 @@ const Contact = () => {
 }
 
 const ContactContainer = styled.div`
-  padding: 40px 20px;
+  padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
 
@@ -77,11 +77,20 @@ const ContactContainer = styled.div`
     color: #ffffff;
     font-size: 2.5em;
     margin-bottom: 40px;
+    
+    @media (max-width: 768px) {
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
   }
 
   h2 {
     color: #ffffff;
     margin-bottom: 20px;
+    
+    @media (max-width: 768px) {
+      font-size: 1.5em;
+    }
   }
 `
 
@@ -93,12 +102,17 @@ const ContentWrapper = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 `
 
 const InfoSection = styled.div`
   h2 {
     margin-bottom: 30px;
+    
+    @media (max-width: 768px) {
+      margin-bottom: 20px;
+    }
   }
 `
 
@@ -109,6 +123,11 @@ const InfoCard = styled.div`
   padding: 30px;
   margin-bottom: 30px;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
 `
 
 const InfoItem = styled.div`
@@ -124,6 +143,10 @@ const InfoItem = styled.div`
     color: #ffffff;
     margin: 0 0 5px 0;
     font-size: 1.2em;
+    
+    @media (max-width: 768px) {
+      font-size: 1.1em;
+    }
   }
 
   p, a {
@@ -131,6 +154,7 @@ const InfoItem = styled.div`
     margin: 0;
     text-decoration: none;
     transition: color 0.3s ease;
+    font-size: 0.95em;
 
     &:hover {
       color: #ffffff;
@@ -148,12 +172,24 @@ const Icon = styled.span`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  
+  @media (max-width: 768px) {
+    width: 35px;
+    height: 35px;
+    font-size: 1.3em;
+    margin-right: 12px;
+  }
 `
 
 const SocialSection = styled.div`
   h3 {
     color: #ffffff;
     margin-bottom: 20px;
+    
+    @media (max-width: 768px) {
+      font-size: 1.1em;
+      margin-bottom: 15px;
+    }
   }
 `
 
@@ -167,6 +203,10 @@ const MapSection = styled.div`
   h2 {
     text-align: center;
     margin-bottom: 30px;
+    
+    @media (max-width: 768px) {
+      margin-bottom: 20px;
+    }
   }
 `
 
@@ -177,6 +217,17 @@ const MapContainer = styled.div`
   padding: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   overflow: hidden;
+  
+  @media (max-width: 768px) {
+    padding: 10px;
+    border-radius: 15px;
+  }
+  
+  iframe {
+    @media (max-width: 768px) {
+      height: 300px;
+    }
+  }
 `
 
 export default Contact
