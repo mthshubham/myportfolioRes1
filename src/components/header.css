@@ -80,6 +80,7 @@
 
 @media (max-width: 768px) {
     .header {
+        position: absolute;
         padding: 10px;
     }
     
