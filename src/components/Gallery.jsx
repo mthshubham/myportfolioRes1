@@ -1,37 +1,99 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 
-
-
-const Gallery = ({imagedata}) => {
-
-    const images = imagedata;
+const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageSize, setImageSize] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [touchStart, setTouchStart] = useState(null);
+  const [preloadedImages, setPreloadedImages] = useState({});
 
-  const openImage = (index) => {
+  const images = [
+    {
+      src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80",
+      alt: "Coding Setup",
+      category: "Development"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80",
+      alt: "Development",
+      category: "Coding"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+      alt: "Code",
+      category: "Programming"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+      alt: "Programming",
+      category: "Development"
+    }
+  ];
+
+  // Preload images
+  useEffect(() => {
+    const preloadImage = (src) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        setPreloadedImages(prev => ({ ...prev, [src]: true }));
+      };
+    };
+
+    images.forEach(image => {
+      if (!preloadedImages[image.src]) {
+        preloadImage(image.src);
+      }
+    });
+  }, [images]);
+
+  const openImage = useCallback((index) => {
     setSelectedImage(images[index]);
     setCurrentIndex(index);
-    setImageSize(1); // Reset image size when opening a new image
-  };
+    setImageSize(1);
+    document.body.style.overflow = 'hidden';
+  }, [images]);
 
-  const closeImage = () => {
+  const closeImage = useCallback(() => {
     setSelectedImage(null);
-  };
+    document.body.style.overflow = 'auto';
+  }, []);
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     const newIndex = (currentIndex + 1) % images.length;
     setSelectedImage(images[newIndex]);
     setCurrentIndex(newIndex);
-    setImageSize(1); // Reset image size when navigating to next image
-  };
+    setImageSize(1);
+  }, [currentIndex, images]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     const newIndex = (currentIndex - 1 + images.length) % images.length;
     setSelectedImage(images[newIndex]);
     setCurrentIndex(newIndex);
-    setImageSize(1); // Reset image size when navigating to previous image
+    setImageSize(1);
+  }, [currentIndex, images]);
+
+  // Touch gesture handling
+  const handleTouchStart = (e) => {
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!touchStart) return;
+    
+    const currentTouch = e.touches[0].clientX;
+    const diff = touchStart - currentTouch;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        nextImage();
+      } else {
+        prevImage();
+      }
+      setTouchStart(null);
+    }
   };
 
   // Keyboard event handling
@@ -49,10 +111,10 @@ const Gallery = ({imagedata}) => {
             closeImage();
             break;
           case 'ArrowUp':
-            setImageSize((prevSize) => prevSize + 0.1); // Increase image size on keyUp
+            setImageSize(prev => Math.min(prev + 0.1, 3));
             break;
           case 'ArrowDown':
-            setImageSize((prevSize) => Math.max(prevSize - 0.1, 0.1)); // Decrease image size on keyDown
+            setImageSize(prev => Math.max(prev - 0.1, 0.5));
             break;
           default:
             break;
@@ -61,74 +123,202 @@ const Gallery = ({imagedata}) => {
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [selectedImage, currentIndex]);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImage, nextImage, prevImage, closeImage]);
 
   return (
-    <div>
-        <h1 style={{textAlign:"center",}}>. . . .  Gallery  . . . .</h1>
-      <GalleryWrapper>
+    <GalleryWrapper>
+      <GalleryHeader>
+        <GalleryTitle>Project Gallery</GalleryTitle>
+        <GalleryDescription>Explore my development journey through these snapshots</GalleryDescription>
+      </GalleryHeader>
+
+      <GalleryGrid>
         {images.map((image, index) => (
-          <ImageWrapper key={index} onClick={() => openImage(index)}>
-            <img src={image.src} alt={image.alt} />
-          </ImageWrapper>
+          <GalleryItem 
+            key={index}
+            onClick={() => openImage(index)}
+            className={preloadedImages[image.src] ? 'loaded' : ''}
+          >
+            <img 
+              src={image.src} 
+              alt={image.alt} 
+              loading="lazy"
+            />
+            <ImageOverlay>
+              <ImageTitle>{image.alt}</ImageTitle>
+              <ImageCategory>{image.category}</ImageCategory>
+            </ImageOverlay>
+          </GalleryItem>
         ))}
-      </GalleryWrapper>
+      </GalleryGrid>
 
       {selectedImage && (
         <Lightbox>
           <Overlay onClick={closeImage} />
-          <LargeImage src={selectedImage.src} alt={selectedImage.alt} size={imageSize} />
-          <NavButton onClick={prevImage} style={{ left: '10px' }}>‹</NavButton>
-          <NavButton onClick={nextImage} style={{ right: '10px' }}>›</NavButton>
+          <LightboxContent
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+          >
+            <ImageContainer>
+              <img 
+                src={selectedImage.src} 
+                alt={selectedImage.alt} 
+                style={{ 
+                  transform: `scale(${imageSize})`,
+                  opacity: isLoading ? 0 : 1 
+                }}
+                onLoad={() => setIsLoading(false)}
+              />
+            </ImageContainer>
+            <LightboxControls>
+              <NavButton 
+                onClick={prevImage} 
+                aria-label="Previous image"
+                disabled={currentIndex === 0}
+              >
+                ‹
+              </NavButton>
+              <ImageCounter>
+                {currentIndex + 1} / {images.length}
+              </ImageCounter>
+              <NavButton 
+                onClick={nextImage} 
+                aria-label="Next image"
+                disabled={currentIndex === images.length - 1}
+              >
+                ›
+              </NavButton>
+            </LightboxControls>
+            <CloseButton onClick={closeImage} aria-label="Close">×</CloseButton>
+          </LightboxContent>
         </Lightbox>
       )}
-    </div>
+    </GalleryWrapper>
   );
 };
 
 const GalleryWrapper = styled.div`
-  margin: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 `;
 
-const ImageWrapper = styled.div`
-  flex: 1 0 21%;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  border-radius: 10px;
-  overflow: hidden;
-  
-  &:hover {
-    transform: scale(1.05);
-  }
-  
-  img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-  }
+const GalleryHeader = styled.div`
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
+const GalleryTitle = styled.h2`
+  font-size: 2.5rem;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+`;
+
+const GalleryDescription = styled.p`
+  color: #636e72;
+  font-size: 1.1rem;
+`;
+
+const GalleryGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
 
   @media (max-width: 768px) {
-    flex: 1 0 45%;
-    
-    img {
-      height: 200px;
-    }
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+`;
+
+const GalleryItem = styled.div`
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 16/9;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+
+  @media (max-width: 768px) {
+    aspect-ratio: 4/3;
+  }
+
+  &.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+`;
+
+const ImageOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 1.5rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: translateY(20px);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    opacity: 1;
+    transform: translateY(0);
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+  }
+
+  ${GalleryItem}:hover & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const ImageTitle = styled.h3`
+  color: white;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+const ImageCategory = styled.span`
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  display: block;
+  margin-top: 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
   }
 `;
 
@@ -136,15 +326,17 @@ const Lightbox = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.9);
   z-index: 1000;
-  animation: fadeIn 0.3s ease;
-  
+  padding: 0;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -155,45 +347,120 @@ const Overlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   cursor: pointer;
 `;
 
-const LargeImage = styled.img`
-  max-width: ${({ size }) => size * 80}%;
-  max-height: ${({ size }) => size * 80}%;
-  border-radius: 10px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-  animation: zoomIn 0.3s ease;
-  
-  @keyframes zoomIn {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+const LightboxContent = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: calc(100% - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+    display: block;
+    margin: auto;
   }
 `;
 
+const LightboxControls = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1001;
+  height: 80px;
+`;
+
 const NavButton = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   border: none;
   color: white;
   font-size: 2rem;
   cursor: pointer;
-  padding: 15px;
-  border-radius: 50%;
-  backdrop-filter: blur(5px);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
   transition: all 0.3s ease;
-  
+  z-index: 1001;
+
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-50%) scale(1.1);
+    background: rgba(255, 255, 255, 0.25);
   }
   
   &:active {
-    transform: translateY(-50%) scale(0.95);
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+const ImageCounter = styled.div`
+  color: white;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 500;
+  min-width: 80px;
+`;
+
+const CloseButton = styled.button`
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  border: none;
+  color: white;
+  font-size: 1.75rem;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  z-index: 1001;
+
+  &:active {
+    transform: scale(0.95);
   }
 `;
 

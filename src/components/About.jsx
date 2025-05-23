@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Gallery from './Gallery';
 
 const About = () => {
   return (
@@ -89,6 +90,13 @@ const About = () => {
             </ServiceCard>
           </ServicesGrid>
         </Section>
+
+        <Section>
+          <h2>Gallery</h2>
+          <GalleryContainer>
+            <Gallery />
+          </GalleryContainer>
+        </Section>
       </ContentWrapper>
     </AboutContainer>
   );
@@ -171,7 +179,7 @@ const ProfileInfo = styled.div`
   }
 
   h3 {
-    color: #23a6d5;
+    color: #58a6ff;
     margin: 0 0 15px 0;
     font-size: 1.2em;
   }
@@ -226,13 +234,13 @@ const TimelineDot = styled.div`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #23a6d5;
+  background: #58a6ff;
   border: 2px solid rgba(255, 255, 255, 0.2);
 `;
 
 const TimelineContent = styled.div`
   h3 {
-    color: #23a6d5;
+    color: #58a6ff;
     margin: 0 0 5px 0;
     font-size: 1.1em;
   }
@@ -258,7 +266,7 @@ const EducationCard = styled.div`
   }
 
   h4 {
-    color: #23a6d5;
+    color: #58a6ff;
     margin: 0 0 10px 0;
     font-size: 1.1em;
   }
@@ -308,6 +316,14 @@ const Icon = styled.span`
   font-size: 2em;
   display: block;
   margin-bottom: 10px;
+`;
+
+const GalleryContainer = styled.div`
+  margin-top: 20px;
+  
+  @media (max-width: 768px) {
+    margin-top: 15px;
+  }
 `;
 
 export default About;

@@ -26,14 +26,14 @@ const Header = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+  
   return (
     <HeaderContainer isScrolled={isScrolled}>
       <HeaderContent>
         <LeftSection>
           <Logo>
             <Link to="/">
-              <span className="highlight">Port</span>folio
+              <span className="highlight">S</span>hubham
             </Link>
           </Logo>
 
@@ -55,13 +55,13 @@ const Header = () => {
 
         <RightSection>
           <SocialIconsContainer>
-            <Socialicons socialpath={whatsapp} sociallink="https://wa.me/7260882890"/>
-            <Socialicons socialpath={facebook} sociallink="https://m.facebook.com/SHUBHAM0SHARMA/"/>
-            <Socialicons socialpath={instagram} sociallink="https://www.instagram.com/sharma_shubham_mth"/>
-            <Socialicons socialpath={linkedin} sociallink="https://www.linkedin.com/in/imshubhamthakur"/>
+        <Socialicons socialpath={whatsapp} sociallink="https://wa.me/7260882890"/>
+        <Socialicons socialpath={facebook} sociallink="https://m.facebook.com/SHUBHAM0SHARMA/"/>
+        <Socialicons socialpath={instagram} sociallink="https://www.instagram.com/sharma_shubham_mth"/>
+        <Socialicons socialpath={linkedin} sociallink="https://www.linkedin.com/in/imshubhamthakur"/>
           </SocialIconsContainer>
-
-          <Search />
+        
+        <Search />
         </RightSection>
 
         <HamburgerButton onClick={toggleMenu} isOpen={isMenuOpen}>
@@ -82,41 +82,42 @@ const HeaderContainer = styled.header`
   z-index: 1000;
   transition: all 0.3s ease;
   background: ${props => props.isScrolled 
-    ? 'rgba(17, 17, 17, 0.95)' 
-    : 'rgba(17, 17, 17, 0.8)'};
+    ? 'rgba(13, 17, 23, 0.95)' 
+    : 'rgba(13, 17, 23, 0.85)'};
   backdrop-filter: blur(10px);
   box-shadow: ${props => props.isScrolled 
-    ? '0 4px 30px rgba(0, 0, 0, 0.1)' 
+    ? '0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1)' 
     : 'none'};
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 `;
 
 const HeaderContent = styled.div`
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 15px 30px;
+  padding: 12px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   @media (max-width: 768px) {
-    padding: 12px 20px;
+    padding: 10px 16px;
   }
 `;
 
 const LeftSection = styled.div`
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 48px;
 
   @media (max-width: 768px) {
-    gap: 20px;
+    gap: 16px;
   }
 `;
 
 const RightSection = styled.div`
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 24px;
 
   @media (max-width: 768px) {
     display: none;
@@ -127,57 +128,62 @@ const Logo = styled.div`
   a {
     color: #ffffff;
     text-decoration: none;
-    font-size: 1.8em;
-    font-weight: 700;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
+    font-size: 1.5em;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     .highlight {
-      color: #23a6d5;
+      color: #58a6ff;
+      font-weight: 700;
     }
 
     &:hover {
-      transform: translateY(-2px);
+      opacity: 0.9;
     }
   }
 
   @media (max-width: 768px) {
     a {
-      font-size: 1.5em;
+      font-size: 1.3em;
     }
   }
 `;
 
 const Nav = styled.nav`
   display: flex;
-  gap: 35px;
+  gap: 32px;
 
   @media (max-width: 768px) {
     position: fixed;
-    top: 70px;
+    top: 60px;
     left: 0;
     right: 0;
     flex-direction: column;
-    background: rgba(17, 17, 17, 0.95);
+    background: rgba(13, 17, 23, 0.98);
     backdrop-filter: blur(10px);
-    padding: 20px;
-    gap: 15px;
+    padding: 16px;
+    gap: 8px;
     transform: translateY(${props => props.isOpen ? '0' : '-100%'});
     opacity: ${props => props.isOpen ? '1' : '0'};
     visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 `;
 
 const StyledNavLink = styled(RouterNavLink)`
   color: #ffffff;
   text-decoration: none;
-  font-size: 1.1em;
+  font-size: 0.95em;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   position: relative;
-  padding: 5px 0;
+  padding: 4px 0;
+  opacity: 0.8;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   span {
     position: relative;
@@ -190,15 +196,16 @@ const StyledNavLink = styled(RouterNavLink)`
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 2px;
-    background: #23a6d5;
+    height: 1px;
+    background: #58a6ff;
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
   }
 
   &:hover, &.active {
-    color: #23a6d5;
+    opacity: 1;
+    color: #ffffff;
 
     &::before {
       transform: scaleX(1);
@@ -207,15 +214,17 @@ const StyledNavLink = styled(RouterNavLink)`
   }
 
   @media (max-width: 768px) {
-    font-size: 1.2em;
-    padding: 12px 0;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    font-size: 1em;
+    padding: 12px 16px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    opacity: 0.9;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      opacity: 1;
     }
 
     &::before {
@@ -226,10 +235,10 @@ const StyledNavLink = styled(RouterNavLink)`
 
 const SocialIconsContainer = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 16px;
   align-items: center;
-  padding: 0 20px;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 16px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
 
   @media (max-width: 768px) {
     border-right: none;
@@ -241,8 +250,8 @@ const HamburgerButton = styled.button`
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 30px;
-  height: 21px;
+  width: 24px;
+  height: 18px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -251,10 +260,11 @@ const HamburgerButton = styled.button`
 
   span {
     width: 100%;
-    height: 2px;
+    height: 1.5px;
     background: #ffffff;
-    border-radius: 10px;
-    transition: all 0.3s ease;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    opacity: 0.8;
   }
 
   @media (max-width: 768px) {
@@ -263,7 +273,7 @@ const HamburgerButton = styled.button`
 
   ${props => props.isOpen && `
     span:first-child {
-      transform: translateY(9px) rotate(45deg);
+      transform: translateY(8px) rotate(45deg);
     }
 
     span:nth-child(2) {
@@ -271,7 +281,7 @@ const HamburgerButton = styled.button`
     }
 
     span:last-child {
-      transform: translateY(-9px) rotate(-45deg);
+      transform: translateY(-8px) rotate(-45deg);
     }
   `}
 `;

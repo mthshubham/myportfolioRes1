@@ -40,7 +40,9 @@ const Contact = () => {
           
           <SocialSection>
             <h3>Connect with me</h3>
+            <span>
             <Social />
+            </span>
           </SocialSection>
         </InfoSection>
 
