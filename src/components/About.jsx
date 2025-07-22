@@ -19,7 +19,7 @@ const About = () => {
             </p>
           </ProfileInfo>
         </ProfileSection>
-
+/*
         <Section>
           <h2>My Journey</h2>
           <Timeline>
@@ -51,7 +51,7 @@ const About = () => {
             </TimelineItem>
           </Timeline>
         </Section>
-
+*/
         <Section>
           <h2>Education</h2>
           <EducationCard>
